@@ -14,9 +14,9 @@ class Item(BaseModel):
 
 class Item2(BaseModel):
     name: str
-    description: str | None = None
+    description: Union[str, None] = None
     price: float
-    tax: float | None = None
+    tax: Union[float, None] = None
 
 @router.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):

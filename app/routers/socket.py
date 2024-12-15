@@ -8,7 +8,7 @@ router = APIRouter(
 )
 
 class Message(BaseModel):
-    message: str | None = ""
+    message: Union[str, None] = ""
 
 @router.post("/")
 async def sendMessage(item: Message):
