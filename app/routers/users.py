@@ -16,17 +16,27 @@ class RigisterItem(BaseModel):
     id: str
     psword: str
     name: str
+class CheckLoginItem(BaseModel):
+    id: str
+    key: str
 
 @router.post("/login/")
 async def login(item: LoginItem):
     result = UserStorage.Login(item)
     if not result['status']:
-        raise HTTPException(status_code=404, detail=result['message'])
-    return result['message']
+        raise HTTPException(status_code=401, detail=result['message'])
+    return result
 
 @router.post("/register/")
 async def register(item: RigisterItem):
     result = UserStorage.Register(item)
     if not result['status']:
-        raise HTTPException(status_code=404, detail=result['message'])
+        raise HTTPException(status_code=401, detail=result['message'])
     return result['message']
+
+@router.post("/checklogin/")
+async def checklogin(item: CheckLoginItem):
+    result = UserStorage.CheckLogin(item)
+    if not result['status']:
+        raise HTTPException(status_code=401, detail=result['message'])
+    return result
