@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import items, users, socket
+from routers import items, users, socket, getdday
 from sockets import sio_app
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,6 +16,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(items.router)
 app.include_router(socket.router)
+app.include_router(getdday.router)
 
 app.mount('/ws', app=sio_app)
 
