@@ -17,6 +17,9 @@ class RigisterItem(BaseModel):
 class CheckLoginItem(BaseModel):
     id: str
     key: str
+    
+class CheckIdItem(BaseModel):
+    id: str
 
 def MakeSessionKey(n: int):
     rand_str=''
@@ -45,3 +48,8 @@ def CheckLogin(item: CheckLoginItem):
     if sessionKey[item.id]!=item.key:
         return {'status':False, 'message':'Auth Failed'}
     return {'status':True, 'message':'OK'}
+
+def CheckId(item: CheckIdItem):
+    if item.id in users:
+        return {'result': True}
+    return {'result': False}

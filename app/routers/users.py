@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from internal import UserStorage
 
 router = APIRouter(
-    prefix='/auth',
+    prefix='/api/auth',
     tags=['Auth']
 )
 
@@ -19,6 +19,8 @@ class RigisterItem(BaseModel):
 class CheckLoginItem(BaseModel):
     id: str
     key: str
+class CheckIdItem(BaseModel):
+    id: str
 
 @router.post("/login/")
 async def login(item: LoginItem):
@@ -39,4 +41,9 @@ async def checklogin(item: CheckLoginItem):
     result = UserStorage.CheckLogin(item)
     if not result['status']:
         raise HTTPException(status_code=401, detail=result['message'])
+    return result
+
+@router.post("/loginid_check/")
+async def loginid_check(item: CheckIdItem):
+    result = UserStorage.CheckId(item)
     return result
