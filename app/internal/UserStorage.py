@@ -1,6 +1,6 @@
 import random
 import string
-
+# grade:현역의 해
 users = {'admin':{'psword':'admin', 'name':'어드민', 'grade':2025}}
 sessionKey = {}
 
@@ -64,6 +64,11 @@ def Getname(item: CheckIdItem):
     if item.id not in users:
         return {'result': None}
     return {'result': users[item.id]['name']}
+
+def Getgrade(item: CheckIdItem):
+    if item.id not in users:
+        return {'result': None}
+    return {'result': users[item.id]['grade']}
 
 def Logout(item: CheckLoginItem):
     islogin=CheckLogin(item)
